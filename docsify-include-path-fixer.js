@@ -234,6 +234,22 @@
     attempts++;
     try {
       if (window._docsify_ipf_registered) return; // already done
+
+      // If the site hasn't created a global $docsify config yet, create a
+      // minimal one including our plugin. This ensures the plugin is present
+      // when Docsify bootstraps (Docsify reads config on mount). Sites that
+      // later run `window.$docsify = window.$docsify || {};` will keep this
+      // object and merge additional settings.
+      if (!window.$docsify) {
+        try {
+          window.$docsify = { plugins: [window.DocsifyIncludePathFixer()] };
+          window._docsify_ipf_registered = true;
+          return;
+        } catch (e) {
+          // fall through to normal handling
+        }
+      }
+
       if (window.$docsify) {
         // Ensure plugins is an array and append our plugin factory result.
         window.$docsify.plugins = (window.$docsify.plugins || []).concat(window.DocsifyIncludePathFixer());
