@@ -1,0 +1,33 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>docsify-include-path-fixer — test</title>
+    <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- docsify core -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+
+    <!-- local plugin under test -->
+    <script src="docsify-include-path-fixer.js"></script>
+
+    <script>
+      window.$docsify = window.$docsify || {};
+      // page metadata (optional)
+      window.$docsify.name = 'docsify-include-path-fixer test';
+      window.$docsify.loadSidebar = false;
+      window.$docsify.auto2top = true;
+
+      // attach the plugin (use default options)
+      window.$docsify.plugins = (window.$docsify.plugins || []).concat(
+        // optional: pass { scopeSelector: ".markdown-section" } to change scope
+        window.DocsifyIncludePathFixer()
+      );
+    </script>
+  </body>
+</html>
